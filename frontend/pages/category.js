@@ -49,7 +49,7 @@ class Category extends Component {
       );
     });
     return (
-      <Layout>
+      <Layout {...this.props}>
         <Menu menu={headerMenu} />
         <h1>{categories[0].name} Posts</h1>
         {fposts}

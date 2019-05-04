@@ -3,7 +3,6 @@ import Error from 'next/error';
 import WPAPI from 'wpapi';
 import Layout from '../components/Layout';
 import PageWrapper from '../components/PageWrapper';
-import Menu from '../components/Menu';
 import Config from '../config';
 
 const wp = new WPAPI({ endpoint: Config.apiUrl });
@@ -36,12 +35,11 @@ class Post extends Component {
   }
 
   render() {
-    const { post, headerMenu } = this.props;
+    const { post } = this.props;
     if (!post.title) return <Error statusCode={404} />;
 
     return (
-      <Layout>
-        <Menu menu={headerMenu} />
+      <Layout {...this.props}>
         <h1>{post.title.rendered}</h1>
         <div
           // eslint-disable-next-line react/no-danger

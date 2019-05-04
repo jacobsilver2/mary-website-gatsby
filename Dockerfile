@@ -28,6 +28,8 @@ RUN sudo -u www-data composer global require \
 	phpcompatibility/phpcompatibility-wp \
 	automattic/vipwpcs
 
+	COPY php.ini /etc/php/7.2/cli/php.ini
+
 # include composer-installed executables in $PATH
 ENV PATH="/var/www/.composer/vendor/bin:${PATH}"
 

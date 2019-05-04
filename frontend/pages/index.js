@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import PageWrapper from '../components/PageWrapper';
 import Menu from '../components/Menu';
 import Config from '../config';
+import Slider from '../components/Slider';
 
 const wp = new WPAPI({ endpoint: Config.apiUrl });
 
@@ -101,23 +102,17 @@ class Index extends Component {
       );
     });
     return (
-      <Layout>
+      <Layout {...this.props}>
         <Menu menu={headerMenu} />
-        <img
-          src="/static/images/wordpress-plus-react-header.png"
-          width="815"
-          alt="logo"
-          style={headerImageStyle}
-        />
+
         <h1>{page.title.rendered}</h1>
+        <Slider />
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: page.content.rendered,
           }}
         />
-        <h2>Posts</h2>
-        {fposts}
         <h2>Pages</h2>
         {fpages}
         {id ? (
@@ -137,12 +132,7 @@ class Index extends Component {
             </p>
           </div>
         )}
-        <h2>Where You're At</h2>
-        <p>
-          You are looking at the REST API-powered React frontend. Be sure to
-          also check out the{' '}
-          <a href="http://localhost:3001/">GraphQL-powered frontend</a>.
-        </p>
+
       </Layout>
     );
   }

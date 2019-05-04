@@ -37,7 +37,7 @@ class Preview extends Component {
     }
 
     return (
-      <Layout>
+      <Layout {...this.props}>
         <Menu menu={headerMenu} />
         <h1>{post ? post.title.rendered : ''}</h1>
         <div

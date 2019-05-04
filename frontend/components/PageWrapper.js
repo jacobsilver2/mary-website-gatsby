@@ -1,23 +1,22 @@
 import React from 'react';
-import WPAPI from 'wpapi';
-import Config from '../config';
-
-const wp = new WPAPI({ endpoint: Config.apiUrl });
-
-// This route is copied from the plugin: wordpress/wp-content/plugins/wp-rest-api-v2-menus/wp-rest-api-v2-menus.php
-wp.menus = wp.registerRoute('menus/v1', '/menus/(?P<id>[a-zA-Z(-]+)');
+import fetch from 'isomorphic-unfetch';
+import  Config  from '../config';
 
 const PageWrapper = Comp =>
   class extends React.Component {
     static async getInitialProps(args) {
-      const [headerMenu, childProps] = await Promise.all([
-        wp.menus().id('header-menu'),
-        Comp.getInitialProps(args),
-      ]);
-
+      const mainNavRes = await fetch(
+        `${Config.apiUrl}/menus/v1/menus/main-nav`
+      );
+      const mainNav = await mainNavRes.json();
+      const footerNavRes = await fetch(
+        `${Config.apiUrl}/menus/v1/menus/footer-nav`
+      );
+      const footerNav = await footerNavRes.json();
       return {
-        headerMenu,
-        ...(Comp.getInitialProps ? childProps : null),
+        mainNav,
+        footerNav,
+        ...(Comp.getInitialProps ? await Comp.getInitialProps(args) : null)
       };
     }
 
